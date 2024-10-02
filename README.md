@@ -1,112 +1,54 @@
--- Script para farmar Haki da Observação no Blox Fruits com painel
-
--- Criar o painel
+-- Criar GUI
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
-local Button = Instance.new("TextButton")
 
--- Configurar o painel
 ScreenGui.Parent = game.CoreGui
 
 Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.Position = UDim2.new(0.5, -100, 0.5, -50)
 Frame.Size = UDim2.new(0, 200, 0, 100)
 
 TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.Size = UDim2.new(1, 0, 0.3, 0)
-TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "AndreiHub"
+TextLabel.Text = "Andrei Hub"
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
 TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextSize = 24
 
-Button.Parent = Frame
-Button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-Button.Position = UDim2.new(0.1, 0, 0.5, 0)
-Button.Size = UDim2.new(0.8, 0, 0.4, 0)
-Button.Font = Enum.Font.SourceSans
-Button.Text = "Ativar Haki e Atacar"
-Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-Button.TextSize = 18
+-- Adicionar Animação
+local TweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out)
+local goal = {Position = UDim2.new(0.5, -100, 0.5, -150)}
 
--- Função para ativar o Haki da Observação
-function ativarHaki()
-    -- Substitua 'instinto' pelo comando específico do jogo para ativar o Haki da Observação
-    game.Players.LocalPlayer.Character:FindFirstChild("Instinto"):Activate()
-end
+local tween = TweenService:Create(Frame, tweenInfo, goal)
+tween:Play()
 
--- Função para atacar inimigos
-function atacarInimigos()
+-- Script para Gerar Fruta Automática (Gacha)
+spawn(function()
     while true do
-        -- Ativar o Haki da Observação
-        ativarHaki()
-        -- Código para atacar inimigos
-        -- Substitua 'ataque' pelo comando específico do jogo
-        game.Players.LocalPlayer.Character:FindFirstChild("Ataque"):Activate()
-        -- Aguarde um pouco antes de atacar novamente
-        wait(1)
+        wait(10) -- Espera 10 segundos entre cada tentativa
+        -- Código para interagir com o gacha
     end
-end
-
--- Função para ativar Haki e atacar quando o botão for clicado
-Button.MouseButton1Click:Connect(function()
-    atacarInimigos()
 end)
--- Script para farmar Haki da Observação no Blox Fruits com painel
 
--- Criar o painel
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local Button = Instance.new("TextButton")
-
--- Configurar o painel
-ScreenGui.Parent = game.CoreGui
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-Frame.Position = UDim2.new(0.5, -100, 0.5, -50)
-Frame.Size = UDim2.new(0, 200, 0, 100)
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.Size = UDim2.new(1, 0, 0.3, 0)
-TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "AndreiHub"
-TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextSize = 24
-
-Button.Parent = Frame
-Button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-Button.Position = UDim2.new(0.1, 0, 0.5, 0)
-Button.Size = UDim2.new(0.8, 0, 0.4, 0)
-Button.Font = Enum.Font.SourceSans
-Button.Text = "Ativar Haki e Atacar"
-Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-Button.TextSize = 18
-
--- Função para ativar o Haki da Observação
-function ativarHaki()
-    -- Substitua 'instinto' pelo comando específico do jogo para ativar o Haki da Observação
-    game.Players.LocalPlayer.Character:FindFirstChild("Instinto"):Activate()
-end
-
--- Função para atacar inimigos
-function atacarInimigos()
+-- ESP dos Jogadores e Frutas
+spawn(function()
     while true do
-        -- Ativar o Haki da Observação
-        ativarHaki()
-        -- Código para atacar inimigos
-        -- Substitua 'ataque' pelo comando específico do jogo
-        game.Players.LocalPlayer.Character:FindFirstChild("Ataque"):Activate()
-        -- Aguarde um pouco antes de atacar novamente
-        wait(1)
-    end
-end
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer then
+                local BillboardGui = Instance.new("BillboardGui")
+                local TextLabel = Instance.new("TextLabel")
 
--- Função para ativar Haki e atacar quando o botão for clicado
-Button.MouseButton1Click:Connect(function()
-    atacarInimigos()
+                BillboardGui.Parent = player.Character.Head
+                BillboardGui.Size = UDim2.new(1, 0, 1, 0)
+                BillboardGui.Adornee = player.Character.Head
+
+                TextLabel.Parent = BillboardGui
+                TextLabel.Text = player.Name
+                TextLabel.Size = UDim2.new(1, 0, 1, 0)
+                TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+            end
+        end
+        wait(1) -- Atualiza a cada segundo
+    end
 end)
