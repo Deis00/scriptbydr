@@ -33,21 +33,24 @@ Button.TextSize = 18
 
 -- Função para ativar o Haki da Observação
 function ativarHaki()
-    -- Substitua 'ativarHakiComando' pelo comando específico do jogo para ativar o Haki
-    print("Haki da Observação ativado")
-    -- ativarHakiComando()
+    -- Substitua 'instinto' pelo comando específico do jogo para ativar o Haki da Observação
+    game.Players.LocalPlayer.Character:FindFirstChild("Instinto"):Activate()
 end
 
 -- Função para atacar inimigos
 function atacarInimigos()
-    -- Código para atacar inimigos
-    -- Substitua 'ataque' pelo comando específico do jogo
-    print("Atacando inimigos")
-    -- ataque()
+    while true do
+        -- Ativar o Haki da Observação
+        ativarHaki()
+        -- Código para atacar inimigos
+        -- Substitua 'ataque' pelo comando específico do jogo
+        game.Players.LocalPlayer.Character:FindFirstChild("Ataque"):Activate()
+        -- Aguarde um pouco antes de atacar novamente
+        wait(1)
+    end
 end
 
 -- Função para ativar Haki e atacar quando o botão for clicado
 Button.MouseButton1Click:Connect(function()
-    ativarHaki()
     atacarInimigos()
 end)
